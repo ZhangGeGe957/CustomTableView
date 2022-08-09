@@ -149,8 +149,13 @@ OK，现在就齐活了，就差tableview中具体的细节实现了，我们先
     }
 }
 ```
-其中包含了`cellSubView`以及两个协议方法`numberOfRows`和`cellForRow`
+其中包含了`cellSubView`和`recycelCell`私有方法以及两个协议方法`numberOfRows`和`cellForRow`
 ```objectivec
+// 回收cell，存到复用池中且从父视图(scrollView)展示中删除
+- (void)recycelCell:(UIView *)cell {
+    [self.reuseCells addObject:cell];
+    [cell removeFromSuperview];
+}
 // 循环出scrollView中所有的subview（SHCTableViewCell类型）
 - (NSArray *)cellSubView {
     NSMutableArray *cells = [[NSMutableArray alloc] init];
